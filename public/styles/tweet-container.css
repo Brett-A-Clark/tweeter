@@ -1,0 +1,27 @@
+article.tweet {
+  height: 220px;
+  border-style: solid;
+  border-width: thick;
+  color: #545149;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  font-family: sans-serif;
+}
+
+article.tweet header {
+  height: 75px;
+  display: flex;
+  flex-direction: row;
+}
+
+article.tweet footer {
+  height: 60px;
+  border-style: none;
+  border-top-style: solid;
+  border-width: thick;
+  color: #545149;
+  margin-right: 10px;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: row;
+}
