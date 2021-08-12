@@ -1,76 +1,63 @@
 $(document).ready(function() {
 
-// Fake data taken from initial-tweets.json
-const data = [
-  {
-    "user": {
-      "name": "Newton",
-      "avatars": "https://i.imgur.com/73hZDYK.png"
-      ,
-      "handle": "@SirIsaac"
-    },
-    "content": {
-      "text": "If I have seen further it is by standing on the shoulders of giants"
-    },
-    "created_at": 1461116232227
-  },
-  {
-    "user": {
-      "name": "Descartes",
-      "avatars": "https://i.imgur.com/nlhLi3I.png",
-      "handle": "@rd" },
-    "content": {
-      "text": "Je pense , donc je suis"
-    },
-    "created_at": 1461113959088
+  const createTweetElement = function(tweetData) {
+    const time = timeago.format(tweet.created_at);
+    const $avatars = $(`<img src="${tweet.user.avatars}">`);
+    const $name = $("<h6>").text(`${tweet.user.name}`);
+    const handle = $(`<h6 style="margin-left: auto; padding: 2px">`).text(`${tweet.user.handle}`);
+    const $header = $("<header>").addClass("tweet-header");
+    $header.append($avatars, $name, $handle);
+
+    const $body = $("<body>").addClass("tweet-body").text(`${tweet.content.text}`);
+
+    const $time = $("<h6>").text(`${time}`);
+    const $icon = $(`<h6><i class="fas fa-flag"></i><i class="fas fa-retweet" style="margin: 0.2em"></i><i class="fas fa-heart">`).addClass('icons');
+    const $footer = $('<footer>').addClass('tweet-footer');
+    $footer.append($time, $icon);
+
+    const $article = $('<article>').addClass('tweet-container');
+    $article.append($header, $body, $footer);
+
+    return $article;
+  };
+    
+  const renderTweets = function(tweets) {
+    $("#tweet-container").empty();
+    for (const tweet of tweets) {
+      const $tweet = createTweetElement(tweet);
+      $("#tweet-container").prepend($tweet);
+    }
+  };
+
+  const loadTweets = function() {
+    $.ajax("/tweets", { method: "GET" })
+    .then(function (tweetContainer) {
+      renderTweets(tweetContainer);
+    })
   }
-]
+  loadTweets();
 
-const createTweetElement = function(tweet) {
-  const $tweet = $("<article>").addClass("tweet");
-  const daysAgo = daysSinceTweet(tweetObj ["created_at"])
 
-  const innerHTML = `
-        <header>
-            <span>${tweet.user.name}</span>
-            <span class="handle">${tweet.user.handle}</span>
-        </header>
-        <span${tweet.content.text}</span>
-        <footer>
-          <span>${daysAgo} days ago</span>
-          <span class="interactOptions">PIN RETWEET HEART</span>
-        </footer>      
-        `;
-  $tweet.append(innerHTML);      
-  return $tweet;
-};
+  $(".new-tweet form").submit(function(event) {
+    event.preventDefault();
+    const $form = $(this);
+    const newTweetTextStr = $form.children('textarea').val();
 
-const daysSinceTweet = function(epochOfTweet) {
-  const currentDate = new Date();
-  const currentTime = currentDate.getTime();
-  const millisecondsInDay = 86400000;
-  const timeDifference = currentTime - epochOfTweet;
-  const dayDifference = timeDifference/millisecondsInDay;
-  return Math.floor(dayDifference);
-}
+    if (!newTweetTextStr) {
+      alert("All tweets must contain at least one character. Your tweet currently does not.");
+    } else if (newTweetTextStr.length > 140) {
+      alert("We do not accept tweets longer than 140 characters. Your tweet is currently too long.");
+    } else {
 
-const renderTweets = function(tweets) {
-  // loops through tweets
-  for (const tweet of tweets) {
-    // calls createTweetElement for each tweet
-    const $tweet = createTweetElement(tweet);
-    // takes return value and appends it to the tweets container
-    $("section.tweet-container").append($tweet);
-  }
-};
-
-renderTweets(data);
-
-$(".new-tweet form").submit(function(event) {
-  event.preventDefault();
-  const $form = $(this);
-  const tweet = $form.serialize();
-  $.ajax({url: "/tweets/", method: "POST", data: tweet});
-});
-
+      const tweet = $form.serialize();
+      $.ajax({ url: "/tweets/", method: 'POST', data: tweet })
+      .then (function (postRequestReturnValue) {
+        return $.ajax('/tweets', { method: 'GET' })
+      })
+      .then (function (getRequestReturnValue) {
+        const latestTweet = [getRequestReturnValue[getRequestReturnValue.length - 1]];
+        renderTweets(latestTweet);
+      })
+    }
+  })
 });
