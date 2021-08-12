@@ -10,31 +10,28 @@ html {
   box-sizing: inherit;
 }
 
-/*
- * Global layout stuff
- */
-
 body {
   color: #545149;
   background-color: #f4f1ec;
   font-size: 24px;
-  font-family: sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
 }
 
-/*
- * Additional CSS can be defined below or in other CSS files, as per instructions
- */
-
- main {
+main {
   width: 90%; 
   background-color: #f4f1ec;
   display: flex;
   flex-direction: column;
+  justify-self: center;
   align-items: center;
- }
+}
 
- main.container {
+main.container {
    align-self: center;
- }
+}
+
+.tweet-container {
+  width: 100%;
+}
