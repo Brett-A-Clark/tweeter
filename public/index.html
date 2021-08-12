@@ -7,46 +7,25 @@
     <!-- External CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" type="text/css" />
 
-    <!-- External Fonts -->
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@1,300;1,600&display=swap" rel="stylesheet">
 
     <!-- App CSS -->
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-
-    <!-- Nav CSS -->
     <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
-
-    <!-- Header CSS -->
     <link ref="stylesheet" href="/styles/header.css" type="text/css" />
-
-    <!-- New Tweet CSS -->
     <link rel="stylesheet" href="/styles/new-tweet.css" type="text/css" />
-
-    <!-- All Tweets CSS -->
     <link rel="stylesheet" href="/public/styles/tweet-container.css" type="text/css" />
-
-    <!-- External JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-    <!-- Icons -->
-    <script src="https://kit.fontawesome.com/c82046e9f2.js" crossorigin="anonymous"></script>
     
   </head>
 
   <body>
-    <!-- Top nav bar (fixed) -->
-    <nav>
-      <span id="tweet-title">
-       tweeter
-       <i class="fas fa-dove"></i>
-      </span>
-      <div id="new-tweet">
-        <span><b>Write</b> a new tweet</span>
-        <button type="button">
-          <i class="fas fa-angle-double-down"></i>"
-        </button>
-      </div>
+    <nav class="parent">
+      <span class="left">tweeter</span>
+      <span class="right">Write a new tweet</span>
+        <i class="fas fa-angle-double-down"></i>
     </nav>
+
     <header>
       <div>
         <img src="/images/profile-hex.png"> 
@@ -59,20 +38,31 @@
 
     <!-- Page-specific (main) content here -->
     <main class="container">
+      <div class="slideDown" id="slideDown"></div>
       <section class="new-tweet">
-        <h2>Compose Tweet</h2>
-        <form action="/tweets/" method="POST">
-          <textarea name="text" placeholder="What are you humming about?"></textarea>
-          <input type="submit" value="Tweet">
-          <span class="counter">140</span>
+        <form action="/tweets/" method="POST" >
+          <textarea class="text" required name="text" id="tweet-text" placeholder="What are you humming about?"></textarea>
+          <div class="button">
+            <button id="tweet-button" type="submit" class="tweet-button">Tweet></button>
+            <output name="counter" class="counter" for="tweet-text">140</output>
+          </div>
         </form>
       </section>
-      <section class="tweet-container"></section>
+      <article id="tweet-container" class="tweet-container"></article>
     </main>
+
+    <!-- External JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/c82046e9f2.js" crossorigin="anonymous"></script>
 
     <!-- App JS -->
     <script type="text/javascript" src="/scripts/client.js"></script>
-    <!-- Character Counter JS -->
     <script type="text/javascript" src="scripts/composer-char-counter.js"></script>
+    <script type="text/javascript" src="scripts/slidedown.js"></script>
+
+    <!-- Timeago Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   </body>
 </html>
