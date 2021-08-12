@@ -1,16 +1,16 @@
 $(document).ready(function() {
 
-  $('.new-tweet textarea').on('input', function() {
-    const newTweetLength = $(this).val().length;
-    const counterRed = $(this).siblings('.counter');
-    const tweetLimit = 140;
+  const $text = $("#tweet-text");
+  $text.on("input", function() {
+    const characterLimit = 140;
+    const value = $("#tweet-text").val().length;
+    $(".counter").val(characterLimit - value);
 
-    if (newTweetLength > tweetLimit) {
-      counterRed.addClass('tweetTooLong');
-    } else if (newTweetLength <= tweetLimit) {
-      counterRed.removeClass('tweetTooLong');
+    if (characterLimit - value >= 0) {
+      $("output").removeClass("CounterRed");
+    } else if (characterLimit - value < 0) {
+      $("output").addClass("CounterRed");
     }
-    counterRed.text(tweetLimit - newTweetLength);
   });
 });
 
