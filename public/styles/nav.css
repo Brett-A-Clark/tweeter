@@ -1,35 +1,42 @@
-nav {
+.parent {
   height: 120px;
-  width: 100vw;
+  width: 100%;
   background-color: #4056A1;
   color: #FFFFFF;
   padding: 1.5em; 
   position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 500; 
+  z-index: 2; 
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-#tweet-title {
-  font-family: 'Bungee', sans-serif;
-}
-
-#new-tweet {
-  margin: auto;
-  font-family: sans-serif;
-  color: #FFFFFF;
+.left {
   display: flex;
-  flex-direction: column;
+  color: #FFFFFF;
+  background-color: #4056A1;
+  font-size: 1.5rem;
+  font-family: "Bungee", cursive;
+  margin-right: 1.5em;
+  margin-left: 1.5em;
+  margin-top: 10px;
+  padding: 2px;
 }
 
-button {
-  background-color: transparent;
+.right {
+  display: flex;
   color: #FFFFFF;
-  border-style: none;
-  cursor: pointer;
-  outline: none;
+  background-color: #4056A1;
+  font-size: 1.5rem;
+  font-family: "Bungee", cursive;
+  margin-right: 1.5em;
+  margin-left: 1.5em;
+  margin-top: 10px;
+  flex-direction: column;
+  align-items: center;
+  padding: 2px;
+}
+
+.fa-angle-double-down:hover {
+  color: black;
 }
