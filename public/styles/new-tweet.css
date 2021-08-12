@@ -1,4 +1,40 @@
-section.new-tweet {
-  width: 100%;
+.new-tweet {
+  width: 50%;
   margin: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column-reverse;
+  align-self: center;
+}
+
+.tweet-text {
+  display: flex;
+  height: 1.5em;
+  width: 100%;
+  font-family: "Bungee", sans-serif;
+}
+
+.button {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  width: auto;
+  justify-content: space-between;
+  font-weight: bold;
+  padding-top: 2px;
+}
+
+.tweet-button {
+  padding: 0 1rem;
+  border: 3px solid #8a85ec;
+  font-size: 16;
+  font-weight: bold;
+}
+
+.counter {
+  color: black;
+}
+
+.CounterRed {
+  color: red;
 }
